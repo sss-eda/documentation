@@ -1,0 +1,81 @@
+\section{Software}
+\label{sec:software}
+
+\subsection{RST}
+\label{subsec:sw_rst}
+RST is the specialized radar software running on the server. The software sends commands to the radar timing and transceiver boxes, receives data packets back from them and processes this data.
+\par
+Under normal circumstances, the radar engineer shouldn't have to change anything about this software. Stopping and starting the radar will stop and start the RST software and thus control the operation of the radar. If it is necessary to get involved with the code, there is comprehensive documentation available on the radar server PC as well as a hard copy in the radar office book case.
+
+\clearpage
+
+\subsection{FPGA}
+\label{subsec:sw_fpga}
+If the FPGA is new and empty (it will be flashing all its lights when switched on), you have to program it for the first time via JTAG emulator. If the FPGA is not empty and has been programmed before, the Ethernet connection to the radar server and simple program can be used to re-program the flash of the FPGA.
+
+\subsubsection{Flashing an empty FPGA}
+To program a new and empty FPGA via JTAG emulator, us a PC with iMPACT installed on it and follow these steps:
+\par
+\begin{enumerate}
+	\item Open iMPACT 64 bit (Xilinx Design Tools/Lab Tools/iMPACT 64-bit) and close any windows that automatically open.
+	\item Plug in your USB programming cable
+	\item In the Flows window on the left panel, double click Boundary Scan
+	\item In the Output menu click Cable Auto Connect
+	\item Check that the programming cable is detected by looking in the status bar in the bottom right.
+	\item Plug the JTAG part of the programming cable into the FPGA board and power up the transceiver box.
+	\item Click the File menu and choose Initialize Chain (Ctrl +I) OR
+		\begin{enumerate}
+			\item If prompted about a config file, say yes.
+			\item Browse to and select: /Digital Radar/Transceiver boxes/FPGA/Code/V2\_Test\_Sx.bit
+			\item When asked: Do you want to attach flash?; click Yes.
+			\item Browse to and select: /Digital Radar/Transceiver boxes/FPGA/Code/test.mcs
+			\item Select the right settings:
+				\begin{itemize}
+					\item BPI PROM:				28F128J3D
+					\item Data Width:				16
+					\item Select RS[1:0]b Pin Address Bits:	NOT USED
+				\end{itemize}
+			\item Right click on FPGA; then click Program.
+			\item Right click on Flash; then click Program. (This step takes quite a while to complete!)
+		(If pop-ups come up in steps f and g; click on OK.)
+		\end{enumerate}
+	\item A device will appear and you will be prompted to select a bit file. You can choose the bit file or click cancel/bypass if you just want to programme the PROM.
+	\item If you selected a bit file you can choose NO, when asked if you want to add an SPI or PROM.
+	\item Click OK to close the next pop-up window.
+	\item Now you can double click on Program in the Process Window or right-click on the device and choose Program
+	\item If you chose to bypass the bit file then you need to add a PROM
+	\item Right-click on the device and choose Add SPI/BPI Flash...
+	\item Select your MCS file and then choose the settings as shown in the Figure below and then press OKAY.
+	\item Right  click on the FLASH device and choose Program.
+	\item The process will take several minutes to complete. Don’t worry if it gives you a CPI warning.
+\end{enumerate}
+
+\subsubsection{Re-flashing a FPGA}
+To re-flash a FPGA that has been flashed with a version of the software before, follow these steps:
+\par
+\begin{enumerate}
+	\item Connect the transceiver box with the faulty FPGA to the servicing station, making sure that the control network cable is plugged into the switch.
+	\item NOTE: Avoid re-flashing all of the FPGA's installed in the radar hut.
+	\item Navigate to the directory: \textit{/home/radar/T3/nflash} on the radar servicing station.
+	\item Run the command: \textbf{./fpgaflash all}.
+\end{enumerate}
+
+\clearpage
+
+\subsection{Front Panel}
+\label{subsec:sw_fp}
+The front panel can be programmed using a Zilog programming device. It can be programmed directly from the Zilog IDE or using a .hex file and a generic programming software package.
+\par
+The front panel code was update during 2017 and 2018. The newest version of the software, as well as the older versions, is available on the radar server. If the software is modified, a new version needs to be saved in the same folder. The most recent version should always be uploaded to the server as soon as possible to prevent any future installations that might be outdated.
+\par
+When a new Lantronix module is installed in a transceiver box, the code needs to be updated to associate the box name with the MAC address provided on the Lantronix module.
+
+\clearpage
+
+\subsection{HPSW}
+\label{subsec:sw_hpsw}
+It should only be necessary to program the CPLD on the HPSW once, right after it's been manufactured. This will most probably be done at SANSA Space Science in Hermanus. It can be programmed using JTAG and the code is available on the radar server as well.
+\par
+This software is standard and doesn't require any modifications or upgrades.
+
+\clearpage
