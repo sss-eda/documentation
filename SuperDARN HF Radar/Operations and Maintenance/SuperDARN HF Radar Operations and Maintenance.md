@@ -133,36 +133,35 @@ It is the responsibility of the overwintering radar engineer to ensure that the 
 | Dynamic climbing rope | Properly coiled in the red bag | 1 |
 | Ratchet or jag system | Make sure they're in a working condition | 1 |
 | Descender | - | 1 |
+| Temporary Slings | - | 2 |
+| Carabiners | Attached to slings | 4 |
 
+###### Table 5. Radar Hut Climbing Gear - 2 Climbing Sets
+| Item | Description | Quantity |
+| ---- | ----------- | -------- |
+| Helmet | Check that they're in good condition | 1 per set |
+| Full harness | Inspect regularly | 1 per set |
+| Work belt | (Or 2 cowtails) Check condition | 1 per set |
+| Shock absorbing lanyard | Check condition. Use carabiners instead of hooks. | 1 per set |
+| Carabiners | For any other needs | 4 per set |
 
-	Rescue bag & Smaller red tarp bag. & 1 \\\hline
-	Dynamic climbing rope & Properly coiled in the red bag. & 1 \\\hline
-	Ratchet or jag system & Make sure they're in a working condition. & 1 \\\hline
-	Descender & - & 1 \\\hline
-	Temporary slings & - & 2 \\\hline
-	Carabiners & Attached to the slings & 4 \\\hline
-	\multicolumn{3}{|l|}{\cellcolor{main!20}\textbf{2 Climbing sets}} \\\hline
-	Helmet & Check that their in good condition. & 1 per set \\\hline
-	Full harness & Inspect regularly. & 1 per set \\\hline
-	Work belt & (Or 2 cow tails) Check condition. & 1 per set \\\hline
-	Shock absorbing lanyard & Check condition. Use carabiners instead of hooks to prevent slipping off of ladder rungs. & 1 per set \\\hline
-	Carabiners & For any other gear/equipment needed. & 4 per set \\\hline
-	\multicolumn{3}{|l|}{\cellcolor{main!20}\textbf{Other}} \\\hline
-	Big red bag & Contains climbing sets and spares. & 1 \\\hline
-	Climbing hooks & Not used, but could come in handy. & 4 \\\hline
-	Descenders & Various types. & 4 \\\hline
-	Ratchet & Spare for rescue set. & 1 \\\hline
-	Shock absorbing lanyards & Various types and lengths. & 4 \\\hline
-	Slings & Various lengths & 4 \\\hline
-	Adjustable work belt & - & 1 \\\hline
-	Carabiners & Spares & 5 \\\hline
-	Jag system & Spare for rescue set. & 1 \\\hline
-	Climbing sling & - & 1 \\\hline
-	Helmet & Spare & 1 \\\hline
-\end{longtabu}
-\par
+###### Table 6. Radar Hut Climbing Gear - Other
+| Item | Description | Quantity |
+| ---- | ----------- | -------- |
+| Big red bag | Contains climbing sets and spares. | 1 |
+| Climbing hooks | Not used, but could come in handy. | 4 |
+| Descenders | Various types. | 4 |
+| Ratchet | Spare for rescue set. | 1 |
+| Shock absorbing lanyards | Various types and lengths. | 4 |
+| Slings | Various lengths | 4 |
+| Adjustable work belt | - | 1 |
+| Carabiners | Spares | 5 |
+| Jag system | Spare for rescue set. | 1 |
+| Climbing sling | - | 1 |
+| Helmet | Spare | 1 |
+
 Otherwise, there are also a whole pile of old ropes removed from the radar that can be used as go-ropes. Be sure to take one with for climbing, this makes help from the ground much easier.
-\par
+
 \figref{infra_rescue} shows what a rescue set should look like and what it should include.
 \begin{figure}[H]
 	\centering
