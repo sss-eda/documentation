@@ -1,4 +1,10 @@
 # Infrastructure
+
+## Overview
+The infrastructure of the radar and the maintenance thereof are discussed in depth [here](2_infrastructure.md). The radar's infrastructure consist of 20 antenna masts and a hut which houses all of the radar's transceiver and server equipment, as well as the network and electricity connection to the base infrastructure.
+
+The radar hut is located about 600m South-East of the base at the center of the main antenna array, as shown in [figure 1](#figure-1-map-of-sanae-iv-science-area). There is a lifeline stretching from the base to the radar hut, as indicated on the map in [figure 1](#figure-1-map-of-sanae-iv-science-area).
+
 The static infrastructure of the radar consists mainly of the radar hut and the 20 antenna masts with their stay ropes.
 
 The radar hut contains emergency supplies, climbing gear, tools, various spare parts for the radar and has electricity relayed to it from the base.
