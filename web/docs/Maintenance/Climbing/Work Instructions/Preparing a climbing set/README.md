@@ -30,9 +30,9 @@ Otherwise, there are also a whole pile of old ropes removed from the radar that 
 ###### Figure 2. A climbing set and its content.
 | Rescue bag | Contents |
 | - | - |
-| ![A rescue set and its content.](images/infrastructure/climbing.jpg) | ![A rescue set and its content.](images/infrastructure/climbing_content.jpg) |
+| ![A rescue set and its content.](images/climbing.jpg) | ![A rescue set and its content.](images/climbing_content.jpg) |
 
 \figref{infra_set} shows what a climbing set should look like and what it should include. There are hooks in the radar hut where these can be hung to make it quicker to get ready for climbing.
 
 ##### Figure 3. Gear a climbing set should include.
-![Gear a climbing set should include.](images/infrastructure/set.jpg)
+![Gear a climbing set should include.](images/set.jpg)

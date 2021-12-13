@@ -13,6 +13,6 @@
 ###### Figure 1. A rescue set and its content.
 | Rescue bag | Contents |
 | - | - |
-| ![A rescue set and its content.](images/infrastructure/rescue.jpg) | ![A rescue set and its content.](images/infrastructure/rescue_content.jpg) |
+| ![A rescue set and its content.](images/rescue.jpg) | ![A rescue set and its content.](images/rescue_content.jpg) |
 
 \figref{infra_climbing} shows what the climbing gear bag should look like and what it should include.

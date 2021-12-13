@@ -1,4 +1,5 @@
 # Measuring cable loss
+
 To test an antenna, the cable loss can be measured for each antenna from within the radar hut. To do this, the mobile antenna analyzer can be used. These values should be recorded and entered into the month-end reports.
 
 The antenna analyzer is usually kept in the radar hut for convenience. Measurements should be made at least every second month to ensure that all antennas are still in good condition. To make a cable loss measurement:

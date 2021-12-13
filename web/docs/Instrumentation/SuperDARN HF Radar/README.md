@@ -23,7 +23,7 @@ The configuration of the server and network setup is demonstrated in the diagram
 The radar's various software components are discussed in depth in [Software](4_software.md). The radar has several components that requires their own specialized software:
 - RST - Radar control software installed on the radar server
 - VHDL code installed on the T3 FPGA Board
-- C Code installed on the Front Panel processor
+- C Code installed on the Front Panel processorh
 - VHDL code installed on the HPSW FPGA
 
 The RST software is mostly written in C and was developed to produce a standard data product for all SuperDARN radars. All of the source code is available, but rarely gets updated or changed. See \subsecref{sw_rst} for more information.
