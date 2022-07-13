@@ -1,0 +1,47 @@
+'CR300 Series Datalogger
+
+'For programming tips, copy this address to your browser
+'search window:https://www.campbellsci.com/videos/datalogger-programming
+'To create a different opening program template, type in new
+'instructions and select Template | Save as Default Template
+'Date:
+'Program author:
+
+'Declare Constants
+'Example:
+'CONST PI = 3.141592654 or Const PI = 4*ATN(1)
+
+'Declare Public Variables
+'Example:
+Public PTemp, Batt_volt
+
+'Declare Private Variables
+'Example:
+'Dim Counter
+
+'Define Data Tables.
+DataTable (Test,1,-1) 'Set table size to # of records, or -1 to autoallocate.
+	DataInterval (0,15,Sec,10)
+	Minimum (1,Batt_volt,FP2,False,False)
+	Sample (1,PTemp,FP2)
+EndTable
+
+'Define Subroutines
+'Sub
+	'EnterSub instructions here
+'EndSub
+
+'Main Program
+BeginProg
+  SetStatus ("IPAddressEth", "10.160.20.9")
+	Scan (1,Sec,0,0)
+	  SW12 (1 )
+		PanelTemp (PTemp,60)
+		Battery (Batt_volt)
+		'Enter other measurement instructions
+		'Call Output Tables
+		'Example:
+		CallTable Test
+	NextScan
+EndProg
+

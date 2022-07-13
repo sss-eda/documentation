@@ -1,0 +1,551 @@
+'-----------------------------------------------------------------------------------------------------------------------------------
+'--------------SOUTH AFRICAN NATIONAL SPACE AGENCY: HERMANUS EDA WEATHER STATION---------------------------------------------------
+'-----------------------------------------------------------------------------------------------------------------------------------
+' Description:  Campbell Scientific CR310
+'               Campbell Scientific ClimaVUE50 All-in-one weather station     | C1 (SW12 powered) Address 0
+'               FTP Script to record values to ODIN (Main Server) in a CSV file.
+'               HTTP Post included to post immediate values into database as plain text.
+'               Database used at Marion Island, MARWST1 through InfluxDB.
+' Power Supply: Meanwell SCP-50-12 AC Charge Controller
+'               12V/7Ah SLA Battery
+' Communication:IP over Ethernet or direct connect with USB 
+'              
+'--------------------------------------------------------------------------------------------------
+' Note all changes made during installation/maintenance and save as new file with revision and date
+' Version: 1 Revision: 0 Date: 20220528 Author: D.J. van Wyk Description: FTP and HTTP Post sequence.
+' Version: 1 Revision: 1 Date: 20220528 Author: D.J. van Wyk Description: Addition to FTP sequence to run on the 1st of every month.
+' Version: # Revision: # Date: YYYYMMDD Author: ### #### Description: #############################
+' Version: # Revision: # Date: YYYYMMDD Author: ### #### Description: #############################
+'--------------------------------------------------------------------------------------------------
+
+'****************************************************************************************************************************************
+'*****Due to the ClimaVUE's output of statistical values, the difference between
+'*****sensor polling rate and table calling rate must be taken into account, only values
+'*****during the sensor poll is included in the table, all other values are ignored, this was
+'*****done by implementing a NewValue flag.
+'*****Sensor startup takes a few seconds before valid data is available(-9999 has been seen
+'*****for various fields) these values will be excluded.
+'*****Invalid data due to diagnostic failure will be excluded.
+'*****The WindOK flag has been seen to show faults during intense rain events.
+'****************************************************************************************************************************************
+
+'-Constants-------------------------------------------------------------------------------
+AngleDegrees
+
+' Set Station ID--------------------------------------------------------------------------
+Public StationID As String * 25 = "SANSA_HERWST1"
+
+' Declare ClimaVUE50 Variables and units--------------------------------------------------
+Public ClimaVUE50_Block As String = "************" : Alias ClimaVUE50_Block = AWS_Block
+Const ClimaVUE50_PollRate = 10 ' Set rate from which ClimaVUE50 is polled, calculations are based on this constant
+Dim ClimaVUE50_SDI12(14)
+Public ClimaVUE50_AirTemp           : Units ClimaVUE50_AirTemp = degC          : Alias ClimaVUE50_AirTemp = AirTemp
+Public ClimaVUE50_RH                : Units ClimaVUE50_RH = %                  : Alias ClimaVUE50_RH = RH
+Public ClimaVUE50_DewPointTemp      : Units ClimaVUE50_DewPointTemp = degC     : Alias ClimaVUE50_DewPointTemp = DewPointTemp
+Public ClimaVUE50_WSpd              : Units ClimaVUE50_WSpd = m/s              : Alias ClimaVUE50_WSpd = WSpd
+Public ClimaVUE50_WSpd_Gust         : Units ClimaVUE50_WSpd_Gust = m/s         : Alias ClimaVUE50_WSpd_Gust = WSpd_Gust
+Public ClimaVUE50_WDir              : Units ClimaVUE50_WDir = deg              : Alias ClimaVUE50_WDir = WDir
+Public ClimaVUE50_BPress            : Units ClimaVUE50_BPress = mbar           : Alias ClimaVUE50_BPress = BPress
+Public ClimaVUE50_Rain              : Units ClimaVUE50_Rain = mm               : Alias ClimaVUE50_Rain = Rain
+Public ClimaVUE50_SlrW              : Units ClimaVUE50_SlrW = W/m^2            : Alias ClimaVUE50_SlrW = SlrW
+Public ClimaVUE50_SlrMJ             : Units ClimaVUE50_SlrMJ = MJ/m^2          : Alias ClimaVUE50_SlrMJ = SlrMJ
+Public ClimaVUE50_LightningStrikes  : Units ClimaVUE50_LightningStrikes = Count: Alias ClimaVUE50_LightningStrikes = LightningStrikes
+Public ClimaVUE50_LightningDistance : Units ClimaVUE50_LightningDistance = km  : Alias ClimaVUE50_LightningDistance = LightningDistance
+Public ClimaVUE50_TiltNS            : Units ClimaVUE50_TiltNS = deg            : Alias ClimaVUE50_TiltNS = AWS_TiltNS
+Public ClimaVUE50_TiltWE            : Units ClimaVUE50_TiltWE = deg            : Alias ClimaVUE50_TiltWE = AWS_TiltWE
+Public ClimaVUE50_Meta As String * 40
+Dim ClimaVUE50_NewValue As Boolean = false 'This will ensure only new data is included in the table
+Public ClimaVUE50_CommsFail As Long                                            : Alias ClimaVUE50_CommsFail = AWS_CommsFail
+Public ClimaVUE50_AirTempOK As Long                                            : Alias ClimaVUE50_AirTempOK = AWS_AirTcOK
+Public ClimaVUE50_RHOK As Long                                                 : Alias ClimaVUE50_RHOK = AWS_RHOK
+Public ClimaVUE50_WindOK As Long                                               : Alias ClimaVUE50_WindOK = AWS_WindOK
+Public ClimaVUE50_BPressOK As Long                                             : Alias ClimaVUE50_BPressOK =AWS_BPOK
+Public ClimaVUE50_RainOK As Long                                               : Alias ClimaVUE50_RainOK = AWS_RainOK
+Public ClimaVUE50_SlrOK As Long                                                : Alias ClimaVUE50_SlrOK = AWS_SolarOK
+Public ClimaVUE50_LightningOK As Long                                          : Alias ClimaVUE50_LightningOK = AWS_LightningOK
+' Declare Datalogger Internal Variables and Units-----------------------------------------
+Public LoggerInternal_Block As String = "************"
+Public LoggerSerialNumber As String * 10
+Public ProgramName As String * 50
+Public ProgramSignature As String * 10
+Public LoggerBattery  : Units LoggerBattery = V
+Public LoggerLithiumBatt As String * 15
+Public LoggerTemp : Units LoggerTemp = degC
+Public ScanTime1  : Units ScanTime1 = mSec
+Public ScanTime2  : Units ScanTime2 = mSec
+Public ScanTime3  : Units ScanTime3 = mSec
+Public ScanTime4  : Units ScanTime4 = mSec
+Public DateTime As String * 32
+' Declare Modem Variables and Units-------------------------------------------------------
+Public Modem_Block As String = "************"
+Dim ModemReset : Units ModemReset = Flag
+Dim ModemLowPower : Units ModemLowPower = Flag
+Dim PingRetry
+Public PingTime As Long : Units PingTime = msec
+Public IPFailCount As Long : Units IPFailCount = Count
+' Declare FTP results variable------------------------------------------------------------
+Public FTPResult
+'Declare HTTP Post variables--------------------------------------------------------------
+Public http_header As String * 100
+Public http_post_response As String * 200
+Public http_post_tx 
+Public file_content_2 As String * 400
+' Define Data Tables----------------------------------------------------------------------
+' 5 Minute Table--------------------------------------------------------------------------
+DataTable(Table5Minute,True,-1)
+	DataInterval(0,5,min,10)
+
+	'-StationID
+	Sample(1,StationID,String)
+
+	'-ClimaVUE50
+	' AirTemp
+	Average(1,ClimaVUE50_AirTemp,fp2,ClimaVUE50_AirTempOK =0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' RH
+	Sample(1,ClimaVUE50_RH,fp2)
+	' DewPointTemp
+	Average(1,ClimaVUE50_DewPointTemp,fp2,ClimaVUE50_AirTempOK =0 OR ClimaVUE50_RHOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Wind Speed
+	Average(1,ClimaVUE50_WSpd,fp2,ClimaVUE50_WindOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	StdDev(1,ClimaVUE50_WSpd,FP2,ClimaVUE50_WindOK =0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_WSpd_Gust,FP2,ClimaVUE50_WindOK =0 OR ClimaVUE50_NewValue = false,False) 'Exclude if diagnostic failure or no new value
+	' Wind direction
+	WindVector(1,1,ClimaVUE50_WDir,FP2,ClimaVUE50_WDir = NAN OR ClimaVUE50_WindOK=0 OR ClimaVUE50_NewValue = false,0,0,4) 'Exclude if WD = NAN or diagnostic failure or no new value
+	FieldNames("ClimaVUE50_WDir_Avg,ClimaVUE50_WDir_Std")
+	' Barometric Pressure
+	Average(1,ClimaVUE50_BPress,ieee4,ClimaVUE50_BPressOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Rain
+	Totalize(1,ClimaVUE50_Rain,fp2,ClimaVUE50_RainOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Solar
+	Average(1,ClimaVUE50_SlrW,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Totalize(1,ClimaVUE50_SlrMJ,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Lightning
+	Totalize(1,ClimaVUE50_LightningStrikes,ieee4,ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Average(1,ClimaVUE50_LightningDistance,ieee4,ClimaVUE50_LightningDistance = 0 OR ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if distance = NAN or diagnostic failure or no new value
+	' Tilt
+	Average(1,ClimaVUE50_TiltNS,fp2,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Average(1,ClimaVUE50_TiltWE,fp2,ClimaVUE50_NewValue = false) 'Exclude if no new value
+
+	' Diagnostics - good to include for troubleshooting
+	Totalize(1,ClimaVUE50_CommsFail,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_AirTempOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_RHOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_WindOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_BPressOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_RainOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_SlrOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_LightningOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+
+	' Logger Internal
+	Sample(1,LoggerSerialNumber,String)
+	Sample(1,ProgramName,String)
+	Sample(1,ProgramSignature,String)
+
+	Average(1,LoggerBattery,fp2,False)
+	Sample(1,LoggerLithiumBatt,String,false)
+	Average(1,LoggerTemp,fp2,false)
+
+	Average(1,PingTime,fp2,PingTime = 0)
+
+	Totalize(1,1,fp2,false)
+	FieldNames("ScanCount")
+
+EndTable
+
+' Hourly Table----------------------------------------------------------------------------
+DataTable(TableHour,True,-1)
+	DataInterval(0,60,min,10)
+
+	'-StationID
+	Sample(1,StationID,String)
+
+	'-ClimaVUE50
+	' AirTemp
+	Average(1,ClimaVUE50_AirTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' RH
+	Sample(1,ClimaVUE50_RH,fp2)
+	' DewPointTemp
+	Average(1,ClimaVUE50_DewPointTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_RHOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Wind Speed
+	Average(1,ClimaVUE50_WSpd,fp2,ClimaVUE50_WindOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	StdDev(1,ClimaVUE50_WSpd,FP2,ClimaVUE50_WindOK =0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_WSpd_Gust,FP2,ClimaVUE50_WindOK =0 OR ClimaVUE50_NewValue = false,False) 'Exclude if diagnostic failure or no new value
+	' Wind direction
+	WindVector(1,1,ClimaVUE50_WDir,FP2,ClimaVUE50_WDir = NAN OR ClimaVUE50_WindOK=0 OR ClimaVUE50_NewValue = false,0,0,4) 'Exclude if WD = NAN or diagnostic failure or no new value
+	FieldNames("ClimaVUE50_WDir_Avg,ClimaVUE50_WDir_Std")
+	' Barometric Pressure
+	Average(1,ClimaVUE50_BPress,ieee4,ClimaVUE50_BPressOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Rain
+	Totalize(1,ClimaVUE50_Rain,fp2,ClimaVUE50_RainOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Solar
+	Average(1,ClimaVUE50_SlrW,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Totalize(1,ClimaVUE50_SlrMJ,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Lightning
+	Totalize(1,ClimaVUE50_LightningStrikes,ieee4,ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Average(1,ClimaVUE50_LightningDistance,ieee4,ClimaVUE50_LightningDistance = 0 OR ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if distance = NAN or diagnostic failure or no new value
+	' Tilt
+	Average(1,ClimaVUE50_TiltNS,fp2,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Average(1,ClimaVUE50_TiltWE,fp2,ClimaVUE50_NewValue = false) 'Exclude if no new value
+
+	' Diagnostics - good to include for troubleshooting
+	Totalize(1,ClimaVUE50_CommsFail,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_AirTempOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_RHOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_WindOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_BPressOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_RainOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_SlrOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_LightningOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	' Logger Internal
+	Sample(1,LoggerSerialNumber,String)
+	Sample(1,ProgramName,String)
+	Sample(1,ProgramSignature,String)
+
+	Average(1,LoggerBattery,fp2,False)
+	Sample(1,LoggerLithiumBatt,String,false)
+	Average(1,LoggerTemp,fp2,false)
+
+	Average(1,PingTime,fp2,PingTime = 0)
+
+	Totalize(1,1,fp2,false) 'This must be IEEE4 when used in a daily table
+	FieldNames("ScanCount")
+
+EndTable
+' Daily Table----------------------------------------------------------------------------------------------------------------
+DataTable(TableDay, True, -1) 'Data table for daily records
+	DataInterval(0, 1440, min, -1)
+
+	'-StationID
+	Sample(1, StationID,String)
+
+	'-ClimaVUE50
+	' AirTemp
+	Minimum(1,ClimaVUE50_AirTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_AirTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Average(1,ClimaVUE50_AirTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' RH
+	Minimum(1,ClimaVUE50_RH,fp2,ClimaVUE50_RHOK = 0 OR ClimaVUE50_NewValue = false,true)'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_RH,fp2,ClimaVUE50_RHOK = 0 OR ClimaVUE50_NewValue = false,true)'Exclude if diagnostic failure or no new value
+	' DewPointTemp
+	Minimum(1,ClimaVUE50_DewPointTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_RHOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_DewPointTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_RHOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Average(1,ClimaVUE50_DewPointTemp,fp2,ClimaVUE50_AirTempOK = 0 OR ClimaVUE50_RHOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Wind Speed
+	Average(1,ClimaVUE50_WSpd,fp2,ClimaVUE50_WindOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	StdDev(1,ClimaVUE50_WSpd,FP2,ClimaVUE50_WindOK =0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_WSpd_Gust,FP2,ClimaVUE50_WindOK =0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	' Wind direction
+	WindVector(1,1,ClimaVUE50_WDir,FP2,ClimaVUE50_WDir = NAN OR ClimaVUE50_WindOK=0 OR ClimaVUE50_NewValue = false,0,0,4) 'Exclude if WD = NAN or diagnostic failure or no new value
+	FieldNames("ClimaVUE50_WDir_Avg,ClimaVUE50_WDir_Std")
+	' Barometric Pressure
+	Minimum(1,ClimaVUE50_BPress,ieee4,ClimaVUE50_BPressOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_BPress,ieee4,ClimaVUE50_BPressOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Average(1,ClimaVUE50_BPress,ieee4,ClimaVUE50_BPressOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Rain
+	Totalize(1,ClimaVUE50_Rain,fp2,ClimaVUE50_RainOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Solar
+	Minimum(1,ClimaVUE50_SlrW,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_SlrW,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if diagnostic failure or no new value
+	Average(1,ClimaVUE50_SlrW,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Totalize(1,ClimaVUE50_SlrMJ,ieee4,ClimaVUE50_SlrOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	' Lightning
+	Totalize(1,ClimaVUE50_LightningStrikes,ieee4,ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if diagnostic failure or no new value
+	Minimum(1,ClimaVUE50_LightningDistance,ieee4,ClimaVUE50_LightningDistance = 0 OR ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if distance = NAN or diagnostic failure or no new value
+	Maximum(1,ClimaVUE50_LightningDistance,ieee4,ClimaVUE50_LightningDistance = 0 OR ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false,true) 'Exclude if distance = NAN or diagnostic failure or no new value
+	Average(1,ClimaVUE50_LightningDistance,ieee4,ClimaVUE50_LightningDistance = 0 OR ClimaVUE50_LightningOK=0 OR ClimaVUE50_NewValue = false) 'Exclude if distance = NAN or diagnostic failure or no new value
+	' Tilt
+	Average(1,ClimaVUE50_TiltNS,fp2,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Average(1,ClimaVUE50_TiltWE,fp2,ClimaVUE50_NewValue = false) 'Exclude if no new value
+
+
+	' Diagnostics - good to include for troubleshooting
+	Totalize(1,ClimaVUE50_CommsFail,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_AirTempOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_RHOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_WindOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_BPressOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_RainOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_SlrOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+	Totalize(1,ClimaVUE50_LightningOK,Long,ClimaVUE50_NewValue = false) 'Exclude if no new value
+
+	'-Logger internal
+	Sample(1,LoggerSerialNumber,String)
+	Sample(1,ProgramName,String)
+	Sample(1,ProgramSignature,String)
+
+	Minimum(1,LoggerBattery,ieee4,false,true)                                       'Exclude NANs, Include time of peak
+	Maximum(1,LoggerBattery,ieee4,false,true)                                       'Exclude NANs, Include time of peak
+	Average (1,LoggerBattery,FP2,False)
+
+	Minimum(1,LoggerTemp,ieee4,false,true)                                          'Exclude NANs, Include time of peak
+	Maximum(1,LoggerTemp,ieee4,false,true)                                          'Exclude NANs, Include time of peak
+	Average (1,LoggerTemp,FP2,False)
+
+	Sample(1,LoggerLithiumBatt,String,false)
+
+	Average(1,PingTime,ieee4,PingTime=0)
+
+	Totalize(1,1,ieee4,false)
+	FieldNames("ScanCount")
+
+EndTable
+
+'-Main Program----------------------------------------------------------------------------
+BeginProg
+
+	'Measure battery at startup
+	Battery(LoggerBattery)
+
+	'Power up SW12 Port and wait for sensors to power up
+	SW12(1)
+	Delay (0,10,Sec)
+
+	'Main Scan
+	Scan(1,Sec,1,0)  'Do not change
+
+		'-Starting time of processing
+		Timer (1,mSec,2)
+
+		'-Logger internal readings------------------------------------------------------------
+		LoggerSerialNumber = Status.SerialNumber
+		ProgramName = Status.Progname
+		ProgramSignature = Status.ProgSignature
+		Battery(LoggerBattery)
+		LoggerLithiumBatt = Replace(Status.lithiumbattery,",","")
+		PanelTemp(LoggerTemp,_50Hz)
+		DateTime = Public.Timestamp(1)
+
+		'-Call output tables------------------------------------------------------------------
+		CallTable Table5Minute
+		CallTable TableHour
+		CallTable TableDay
+    'FTP stream every day into a new file the data table of 5 mintue records-------------------------------
+  'If IfTime (0,1,Hr) Then 'FTP on the first of every month
+    FTPResult = FTPClient ("10.160.11.150", "influx", "influx", "Table5Minute", "HERWST1_",2, 0,10,Min,8)
+    'Delay (0,1,Sec)
+  'EndIf 
+           
+		'HTTP Post Sequence
+		http_header = "Content-Type: application/json"
+    ' File content being posted from the values of the sensors----------------------------------------------
+    file_content_2 = "{"
+    file_content_2 = file_content_2 + CHR(34) + "time" + CHR(34) + ": " + CHR(34) + DateTime + CHR(34) + ","
+    file_content_2 = file_content_2 + CHR(34) + "temp" + CHR(34) + ": " + LoggerTemp + ","
+    file_content_2 = file_content_2 + CHR(34) + "volt" + CHR(34) + ": " + LoggerBattery + ","
+    file_content_2 = file_content_2 + CHR(34) + "air_temperature" + CHR(34) + ": " + AirTemp + ","
+    file_content_2 = file_content_2 + CHR(34) + "rh" + CHR(34) + ": " + RH + ","
+    file_content_2 = file_content_2 + CHR(34) + "dewpoint" + CHR(34) + ": " + DewPointTemp + ","
+    file_content_2 = file_content_2 + CHR(34) + "wspd" + CHR(34) + ": " + WSpd + "," 
+    file_content_2 = file_content_2 + CHR(34) + "wspd_gust" + CHR(34) + ": " + WSpd_Gust + ","   
+    file_content_2 = file_content_2 + CHR(34) + "wdir" + CHR(34) + ": " + WDir + ","
+    file_content_2 = file_content_2 + CHR(34) + "bpress" + CHR(34) + ": " + BPress + ","
+    file_content_2 = file_content_2 + CHR(34) + "rain" + CHR(34) + ": " + Rain + ","
+    file_content_2 = file_content_2 + CHR(34) + "slrw" + CHR(34) + ": " + SlrW + ","
+    file_content_2 = file_content_2 + CHR(34) + "slrmj" + CHR(34) + ": " + SlrMJ + ","
+    file_content_2 = file_content_2 + CHR(34) + "lightning_strikes" + CHR(34) + ": " + LightningStrikes + ","
+    file_content_2 = file_content_2 + CHR(34) + "lightning_distance" + CHR(34) + ": " + LightningDistance + ","
+    file_content_2 = file_content_2 + CHR(34) + "tiltns" + CHR(34) + ": " + AWS_TiltNS + ","
+    file_content_2 = file_content_2 + CHR(34) + "tiltwe" + CHR(34) + ": " + AWS_TiltWE
+    file_content_2 = file_content_2 + "}"
+    'HTTP post server location and file to be posted
+    http_post_tx = HTTPPost ("http://10.160.11.56:8080/climavue",file_content_2, http_post_response, http_header)
+    ' ClimaVUE50----------------------------------------------------------------------------
+		' Measured in slow sequence but totals must be excluded when sensor is not being polled - do this after the tables has been called.
+		ClimaVUE50_NewValue = false
+
+		'-Calculate comms time - all comms must take place in less than the scan rate
+		ScanTime1 = Timer(1,mSec,4)
+
+	NextScan
+
+	'-Scan2: ####-------------------------------------------------------------------------
+	SlowSequence
+	Scan(5, Sec, 3, 0)
+
+		'-Starting time of processing
+		Timer (2,mSec,2)
+
+		' ClimaVUE50
+		If TimeIntoInterval(0,ClimaVUE50_PollRate,Sec) Then
+			' Get readings
+			SDI12Recorder(ClimaVUE50_SDI12(),C1,"0","RC7!",1,0,-1) 'With checksum
+			If ClimaVUE50_SDI12(1) = NAN Then 'Catch no comms
+				ClimaVUE50_CommsFail = 1
+				ClimaVUE50_AirTempOK = 0
+				ClimaVUE50_RHOK = 0
+				ClimaVUE50_WindOK = 0
+				ClimaVUE50_BPressOK = 0
+				ClimaVUE50_RainOK = 0
+				ClimaVUE50_SlrOK = 0
+				ClimaVUE50_LightningOK = 0
+				ClimaVUE50_AirTemp = 0
+				ClimaVUE50_RH = 0
+				ClimaVUE50_DewPointTemp = 0
+				ClimaVUE50_WSpd = 0
+				ClimaVUE50_WSpd_Gust = 0
+				ClimaVUE50_WDir = 0
+				ClimaVUE50_BPress = 0
+				ClimaVUE50_Rain = 0
+				ClimaVUE50_SlrW = 0
+				ClimaVUE50_SlrMJ = 0
+				ClimaVUE50_LightningStrikes = 0
+				ClimaVUE50_LightningDistance = 0
+				ClimaVUE50_TiltNS = 0
+				ClimaVUE50_TiltWE = 0
+			Else
+				ClimaVUE50_CommsFail = 0 'Comms OK but catch diagnostic failures
+				' AirTC
+				ClimaVUE50_AirTempOK = ABS(ClimaVUE50_SDI12(8) >= -50)
+				If ClimaVUE50_AirTempOK = 1 Then ClimaVUE50_AirTemp = ClimaVUE50_SDI12(8) Else ClimaVUE50_AirTemp = NAN
+				' RH
+				ClimaVUE50_RHOK = ABS(ClimaVUE50_SDI12(11)*100 >= 0)
+				If ClimaVUE50_RHOK = 1 Then ClimaVUE50_RH = ClimaVUE50_SDI12(11)*100 Else ClimaVUE50_RH = NAN
+				' DewPoint
+				If ClimaVUE50_AirTempOK = 1 AND ClimaVUE50_RHOK = 1 Then
+					DewPoint(ClimaVUE50_DewPointTemp,ClimaVUE50_AirTemp,ClimaVUE50_RH)
+				Else
+					ClimaVUE50_DewPointTemp = NAN
+				EndIf
+				'Wind (Readings may become temporarily invalid due to rain or high winds)
+				ClimaVUE50_WindOK = ABS(ClimaVUE50_SDI12(5) >=0 AND ClimaVUE50_SDI12(6) >= 0 AND ClimaVUE50_SDI12(7) >= 0)
+				If ClimaVUE50_WindOK = 1  Then
+					ClimaVUE50_WSpd = ClimaVUE50_SDI12(5)
+					ClimaVUE50_WSpd_Gust = ClimaVUE50_SDI12(7)     'Over a 10s scan WS_Gust_ms = WS_ms (at least 20s is necessary for the gust to be captured)
+					ClimaVUE50_WDir = ClimaVUE50_SDI12(6)
+				Else
+					ClimaVUE50_WSpd = 0
+					ClimaVUE50_WSpd_Gust = 0
+					ClimaVUE50_WDir = 0
+				EndIf
+				' BP
+				ClimaVUE50_BPressOK = ABS(ClimaVUE50_SDI12(10)*10 >= 500)
+				If ClimaVUE50_BPressOK = 1 Then ClimaVUE50_BPress = ClimaVUE50_SDI12(10)*10 Else ClimaVUE50_BPress = NAN
+				'Rain
+				ClimaVUE50_RainOK= ABS(ClimaVUE50_SDI12(2) >=0)
+				If ClimaVUE50_RainOK = 1 Then ClimaVUE50_Rain = ClimaVUE50_SDI12(2) Else ClimaVUE50_Rain = NAN
+				'Solar
+				ClimaVUE50_SlrOK = ABS(ClimaVUE50_SDI12(1) >= 0)
+				If ClimaVUE50_SlrOK = 1 Then
+					ClimaVUE50_SlrW = ClimaVUE50_SDI12(1)
+					ClimaVUE50_SlrMJ = ClimaVUE50_SlrW * 10^-6 * ClimaVUE50_PollRate
+				Else
+					ClimaVUE50_SlrW = NAN
+					ClimaVUE50_SlrMJ = NAN
+				EndIf
+				'Ligntning
+				ClimaVUE50_LightningOK = ABS(ClimaVUE50_SDI12(3) >= 0 AND ClimaVUE50_SDI12(4) >= 0)
+				If ClimaVUE50_LightningOK = 1 Then
+					ClimaVUE50_LightningStrikes = ClimaVUE50_SDI12(3)
+					If ClimaVUE50_LightningStrikes > 0 Then ClimaVUE50_LightningDistance = ClimaVUE50_SDI12(4) Else ClimaVUE50_LightningDistance = 0
+				Else
+					ClimaVUE50_LightningStrikes = NAN
+					ClimaVUE50_LightningDistance = 0
+				EndIf
+				ClimaVUE50_TiltNS = ClimaVUE50_SDI12(13)
+				ClimaVUE50_TiltWE = ClimaVUE50_SDI12(14)
+				' Include values in table - must be disabled again after table calls.
+				ClimaVUE50_NewValue = true
+				' Sensor metadata in case sensor is swapped or OS is updated
+				SDI12Recorder(ClimaVUE50_Meta,C1,"0","I!",1,0)
+			EndIf
+		EndIf
+
+		'-Calculate comms time - all comms must take place in less than the scan rate
+		ScanTime2 = Timer(2,mSec,4)
+
+	NextScan
+	EndSequence
+
+	'-Scan3: ####-------------------------------------------------------------------------
+	SlowSequence
+	Scan(10, Sec, 3, 0)
+
+		'-Starting time of processing
+		Timer (3,mSec,2)
+
+		'###-------------------------------------------------------------------------------
+		'..
+
+		'-Calculate comms time - all comms must take place in less than the scan rate
+		ScanTime3 = Timer(3,mSec,4)
+
+	NextScan
+	EndSequence
+
+	' Scan4: Modem power------------------------------------------------------------------
+	SlowSequence
+
+	Scan(1,min,0,0)
+
+		'-Starting time of processing
+		Timer (4,mSec,2)
+
+		'-First check if modem is enabled
+		If status.pppinterface <> 0 Then
+
+			'-Measure battery voltage
+			Battery(LoggerBattery)
+
+			'-Power down between 23:57 and 23:59
+			If TimeIsBetween(1437,1439,1440,min) Then
+				If (ModemReset = false) AND (ModemLowPower = false) Then
+					ModemReset= true
+					PPPClose
+					Delay(1,5,sec)
+					SW12(0)
+				EndIf
+			Else
+				If (ModemReset = true) AND (ModemLowPower = false) Then
+					ModemReset = false
+					SW12(1)
+					Delay(1,20,sec)
+					PPPOpen
+				EndIf
+			EndIf
+
+			'-Power down below 12V
+			If (LoggerBattery < 12) AND (ModemLowPower = false) AND (ModemReset = false) Then
+				ModemLowPower = true
+				PPPClose
+				Delay(1,5,sec)
+				SW12(0)
+			EndIf
+
+			'-Power up above 12.2V
+			If (LoggerBattery > 12.2)  AND (ModemLowPower = true) AND (ModemReset = false) Then
+				ModemLowPower = false
+				SW12(1)
+				Delay(1,20,sec)
+				PPPOpen
+			EndIf
+
+			'-IP Keep alive(30 minute)
+			If (ModemReset = false) AND (ModemLowPower = false) Then
+				SetSetting("DNS(2)","8.8.8.8")       'Add google as seconday DNS
+				IPRoute("8.8.8.8",1)                 'Ping test through modem
+				IPRoute("callback.csafrica.co.za",1) 'Callback through modem
+				For PingRetry = 1 To 3
+					PingTime =  PingIP("8.8.8.8",3000)
+					If PingTime > 0 Then ExitFor
+				Next PingRetry
+				If PingTime = 0 Then IPFailCount += 1 Else IPFailCount = 0
+				If (IPFailCount <> 0) AND (IPFailCount MOD 30 = 0) Then
+					PPPClose
+					Delay(1,5,sec)
+					SW12(0)
+					Delay(1,10,Sec)
+					SW12(1)
+					Delay(1,15,sec)
+					PPPOpen
+				EndIf
+			EndIf
+
+		EndIf
+
+		'-Calculate comms time - all comms must take place in less than the scan rate
+		ScanTime4 = Timer(4,mSec,4)
+
+	NextScan
+	EndSequence
+EndProg
+
