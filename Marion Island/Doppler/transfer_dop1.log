@@ -1,0 +1,397 @@
+TERM environment variable not set.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                               Script executed at:
+                          Fri Apr 29 06:01:01 UTC 2022
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                                      ****
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-> Transfer settings for Narrow Band VLF Doppler Receiver:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  * ABBREVIATION:  MARDOP1
+  * USER:          DOPPLER
+  * IP:            172.18.30.107
+  * DATABASE:      MARDOP1db
+  * DATA SOURCE:   /mnt/mardop1_mount
+  * ARCHIVE:       /data/MARDOP1
+  * SHADOW:        /data/.shadows/MARDOP1
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-> Transferring data from instrument PC:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sending incremental file list
+rsync: failed to set times on "/data/.shadows/MARDOP1/DHO": Operation not permitted (1)
+DHO/
+DHO/DHO220426.dop
+DHO/DHO220427.dop
+DHO/DHO220428.dop
+DHO/DHO220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/DHO/.DHO220426.dop.XDmLww" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/FRA": Operation not permitted (1)
+FRA/
+FRA/FRA220426.dop
+FRA/FRA220427.dop
+FRA/FRA220428.dop
+FRA/FRA220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/DHO/.DHO220427.dop.5O8AzS" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/DHO/.DHO220428.dop.DacQTe" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/DHO/.DHO220429.dop.HlcmjB" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/FRA/.FRA220426.dop.NVmUY2" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/FTA": Operation not permitted (1)
+FTA/
+FTA/fta220426.dop
+FTA/fta220427.dop
+FTA/fta220428.dop
+FTA/fta220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/FRA/.FRA220427.dop.F4ewNu" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/FRA/.FRA220428.dop.RaIpLW" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/FRA/.FRA220429.dop.5ywBOo" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/FTA/.fta220426.dop.b6IZ0U" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/GBP": Operation not permitted (1)
+GBP/
+GBP/GBP220426.dop
+GBP/GBP220427.dop
+GBP/GBP220428.dop
+GBP/GBP220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/FTA/.fta220427.dop.bOQImr" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/FTA/.fta220428.dop.T3bDRX" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/FTA/.fta220429.dop.f6xkru" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/GBP/.GBP220426.dop.hNYvu4" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/HWU": Operation not permitted (1)
+HWU/
+HWU/HWU220426.dop
+HWU/HWU220427.dop
+HWU/HWU220428.dop
+HWU/HWU220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/GBP/.GBP220427.dop.Ngx7GE" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/GBP/.GBP220428.dop.BbV72e" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/GBP/.GBP220429.dop.P8BhuP" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/HWU/.HWU220426.dop.1P8I6r" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/HWU/.HWU220427.dop.vehZR4" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/HWU/.HWU220428.dop.JISdMH" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/HWU/.HWU220429.dop.7HvuLk" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/ICV": Operation not permitted (1)
+ICV/
+ICV/NWC220426.dop
+ICV/NWC220427.dop
+ICV/NWC220428.dop
+ICV/NWC220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/ICV/.NWC220426.dop.txi132" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/NAA": Operation not permitted (1)
+NAA/
+NAA/NAA220426.dop
+NAA/NAA220427.dop
+NAA/NAA220428.dop
+NAA/NAA220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/ICV/.NWC220427.dop.7N5pvL" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/ICV/.NWC220428.dop.5os35t" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/ICV/.NWC220429.dop.PqGBLc" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/NAA/.NAA220426.dop.5c4niu" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/RAW": Operation not permitted (1)
+rsync: mkstemp "/data/.shadows/MARDOP1/NAA/.NAA220427.dop.3AZqXL" failed: Permission denied (13)
+RAW/
+RAW/FRA220427_0000.raw
+RAW/FRA220427_0015.raw
+RAW/FRA220427_0030.raw
+RAW/FRA220427_0045.raw
+RAW/FRA220427_0100.raw
+RAW/FRA220427_0115.raw
+RAW/FRA220427_0130.raw
+RAW/FRA220427_0145.raw
+RAW/FRA220427_0200.raw
+RAW/FRA220427_0215.raw
+RAW/FRA220427_0230.raw
+RAW/FRA220427_0245.raw
+RAW/FRA220428_0000.raw
+RAW/FRA220428_0015.raw
+RAW/FRA220428_0030.raw
+RAW/FRA220428_0045.raw
+RAW/FRA220428_0100.raw
+RAW/FRA220428_0115.raw
+RAW/FRA220428_0130.raw
+RAW/FRA220428_0145.raw
+RAW/FRA220428_0200.raw
+RAW/FRA220428_0215.raw
+RAW/FRA220428_0230.raw
+RAW/FRA220428_0245.raw
+RAW/FRA220429_0000.raw
+RAW/FRA220429_0015.raw
+RAW/FRA220429_0030.raw
+RAW/FRA220429_0045.raw
+RAW/FRA220429_0100.raw
+RAW/FRA220429_0115.raw
+RAW/FRA220429_0130.raw
+RAW/FRA220429_0145.raw
+RAW/FRA220429_0200.raw
+RAW/FRA220429_0215.raw
+RAW/FRA220429_0230.raw
+RAW/FRA220429_0245.raw
+rsync: mkstemp "/data/.shadows/MARDOP1/NAA/.NAA220428.dop.v5zQL3" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/NAA/.NAA220429.dop.zOJsFl" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0000.raw.xoNmjF" failed: Permission denied (13)
+rsync: failed to set times on "/data/.shadows/MARDOP1/deletethis": Operation not permitted (1)
+deletethis/
+deletethis/FRA220427.dop
+deletethis/FRA220428.dop
+deletethis/FRA220429.dop
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0015.raw.JYDqrZ" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0030.raw.NGjs3j" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0045.raw.BetN9E" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0100.raw.b0WhK0" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0115.raw.VueJOm" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0130.raw.f9d5mJ" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0145.raw.NU9Op6" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0200.raw.Bvt4Wt" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0215.raw.fydIYR" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0230.raw.hRUIug" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220427_0245.raw.vmQ0uF" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0000.raw.N5QsZ4" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0015.raw.X3IZXu" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0030.raw.dyvAqV" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0045.raw.rbLxnm" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0100.raw.XPpRON" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0115.raw.d6syKf" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0130.raw.7A9yaI" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0145.raw.bYLW4a" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0200.raw.dp1etE" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0215.raw.HyRNl8" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0230.raw.TjJzIC" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220428_0245.raw.pThrz7" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0000.raw.JjZJUC" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0015.raw.JnmoK8" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0030.raw.Z7933E" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0045.raw.71d5Rb" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0100.raw.32hS9I" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0115.raw.vJH0Vg" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0130.raw.f1dzcP" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0145.raw.v3jnXn" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0200.raw.bsE1cX" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0215.raw.JiIuWw" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0230.raw.rbxka7" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/RAW/.FRA220429_0245.raw.jYAlSH" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/deletethis/.FRA220427.dop.RIgQZi" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/deletethis/.FRA220428.dop.xLnD9T" failed: Permission denied (13)
+rsync: mkstemp "/data/.shadows/MARDOP1/deletethis/.FRA220429.dop.zdMJlv" failed: Permission denied (13)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1196) [sender=3.1.2]
+sent 61,607,390 bytes  received 9,308 bytes  2,621,987.15 bytes/sec
+total size is 76,293,987,014  speedup is 1,238.20
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-> Archiving files from shadow directory using hardlinks:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/DHO220426.dop' => '/data/.shadows/MARDOP1/DHO/DHO220426.dop': Operation not permitted
+  * DHO/DHO220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/DHO/DHO220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/DHO/DHO220427.dop': No such file or directory
+  * DHO/DHO220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/DHO/DHO220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/DHO/DHO220428.dop': No such file or directory
+  * DHO/DHO220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/DHO/DHO220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/DHO/DHO220429.dop': No such file or directory
+  * DHO/DHO220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/FRA220426.dop' => '/data/.shadows/MARDOP1/FRA/FRA220426.dop': Operation not permitted
+  * FRA/FRA220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/FRA/FRA220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/FRA/FRA220427.dop': No such file or directory
+  * FRA/FRA220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/FRA/FRA220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/FRA/FRA220428.dop': No such file or directory
+  * FRA/FRA220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/FRA/FRA220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/FRA/FRA220429.dop': No such file or directory
+  * FRA/FRA220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/fta220426.dop' => '/data/.shadows/MARDOP1/FTA/fta220426.dop': Operation not permitted
+  * FTA/fta220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/FTA/fta220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/FTA/fta220427.dop': No such file or directory
+  * FTA/fta220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/FTA/fta220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/FTA/fta220428.dop': No such file or directory
+  * FTA/fta220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/FTA/fta220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/FTA/fta220429.dop': No such file or directory
+  * FTA/fta220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/GBP220426.dop' => '/data/.shadows/MARDOP1/GBP/GBP220426.dop': Operation not permitted
+  * GBP/GBP220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/GBP/GBP220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/GBP/GBP220427.dop': No such file or directory
+  * GBP/GBP220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/GBP/GBP220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/GBP/GBP220428.dop': No such file or directory
+  * GBP/GBP220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/GBP/GBP220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/GBP/GBP220429.dop': No such file or directory
+  * GBP/GBP220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/HWU220426.dop' => '/data/.shadows/MARDOP1/HWU/HWU220426.dop': Operation not permitted
+  * HWU/HWU220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/HWU/HWU220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/HWU/HWU220427.dop': No such file or directory
+  * HWU/HWU220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/HWU/HWU220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/HWU/HWU220428.dop': No such file or directory
+  * HWU/HWU220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/HWU/HWU220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/HWU/HWU220429.dop': No such file or directory
+  * HWU/HWU220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/NWC220426.dop' => '/data/.shadows/MARDOP1/ICV/NWC220426.dop': Operation not permitted
+  * ICV/NWC220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/ICV/NWC220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/ICV/NWC220427.dop': No such file or directory
+  * ICV/NWC220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/ICV/NWC220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/ICV/NWC220428.dop': No such file or directory
+  * ICV/NWC220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/ICV/NWC220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/ICV/NWC220429.dop': No such file or directory
+  * ICV/NWC220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ln: failed to create hard link '/data/MARDOP1/DOP/2022/04/26/NAA220426.dop' => '/data/.shadows/MARDOP1/NAA/NAA220426.dop': Operation not permitted
+  * NAA/NAA220426.dop -> /data/MARDOP1/DOP/2022/04/26
+ls: cannot access '/data/.shadows/MARDOP1/NAA/NAA220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/NAA/NAA220427.dop': No such file or directory
+  * NAA/NAA220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/NAA/NAA220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/NAA/NAA220428.dop': No such file or directory
+  * NAA/NAA220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/NAA/NAA220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/NAA/NAA220429.dop': No such file or directory
+  * NAA/NAA220429.dop -> /data/MARDOP1/DOP/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0000.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0000.raw': No such file or directory
+  * RAW/FRA220427_0000.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0015.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0015.raw': No such file or directory
+  * RAW/FRA220427_0015.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0030.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0030.raw': No such file or directory
+  * RAW/FRA220427_0030.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0045.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0045.raw': No such file or directory
+  * RAW/FRA220427_0045.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0100.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0100.raw': No such file or directory
+  * RAW/FRA220427_0100.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0115.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0115.raw': No such file or directory
+  * RAW/FRA220427_0115.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0130.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0130.raw': No such file or directory
+  * RAW/FRA220427_0130.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0145.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0145.raw': No such file or directory
+  * RAW/FRA220427_0145.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0200.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0200.raw': No such file or directory
+  * RAW/FRA220427_0200.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0215.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0215.raw': No such file or directory
+  * RAW/FRA220427_0215.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0230.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0230.raw': No such file or directory
+  * RAW/FRA220427_0230.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220427_0245.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220427_0245.raw': No such file or directory
+  * RAW/FRA220427_0245.raw -> /data/MARDOP1/RAW/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0000.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0000.raw': No such file or directory
+  * RAW/FRA220428_0000.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0015.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0015.raw': No such file or directory
+  * RAW/FRA220428_0015.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0030.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0030.raw': No such file or directory
+  * RAW/FRA220428_0030.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0045.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0045.raw': No such file or directory
+  * RAW/FRA220428_0045.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0100.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0100.raw': No such file or directory
+  * RAW/FRA220428_0100.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0115.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0115.raw': No such file or directory
+  * RAW/FRA220428_0115.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0130.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0130.raw': No such file or directory
+  * RAW/FRA220428_0130.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0145.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0145.raw': No such file or directory
+  * RAW/FRA220428_0145.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0200.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0200.raw': No such file or directory
+  * RAW/FRA220428_0200.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0215.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0215.raw': No such file or directory
+  * RAW/FRA220428_0215.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0230.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0230.raw': No such file or directory
+  * RAW/FRA220428_0230.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220428_0245.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220428_0245.raw': No such file or directory
+  * RAW/FRA220428_0245.raw -> /data/MARDOP1/RAW/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0000.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0000.raw': No such file or directory
+  * RAW/FRA220429_0000.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0015.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0015.raw': No such file or directory
+  * RAW/FRA220429_0015.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0030.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0030.raw': No such file or directory
+  * RAW/FRA220429_0030.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0045.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0045.raw': No such file or directory
+  * RAW/FRA220429_0045.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0100.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0100.raw': No such file or directory
+  * RAW/FRA220429_0100.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0115.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0115.raw': No such file or directory
+  * RAW/FRA220429_0115.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0130.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0130.raw': No such file or directory
+  * RAW/FRA220429_0130.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0145.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0145.raw': No such file or directory
+  * RAW/FRA220429_0145.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0200.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0200.raw': No such file or directory
+  * RAW/FRA220429_0200.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0215.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0215.raw': No such file or directory
+  * RAW/FRA220429_0215.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0230.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0230.raw': No such file or directory
+  * RAW/FRA220429_0230.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/RAW/FRA220429_0245.raw': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/RAW/FRA220429_0245.raw': No such file or directory
+  * RAW/FRA220429_0245.raw -> /data/MARDOP1/RAW/2022/04/29
+ls: cannot access '/data/.shadows/MARDOP1/deletethis/FRA220427.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/deletethis/FRA220427.dop': No such file or directory
+  * deletethis/FRA220427.dop -> /data/MARDOP1/DOP/2022/04/27
+ls: cannot access '/data/.shadows/MARDOP1/deletethis/FRA220428.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/deletethis/FRA220428.dop': No such file or directory
+  * deletethis/FRA220428.dop -> /data/MARDOP1/DOP/2022/04/28
+ls: cannot access '/data/.shadows/MARDOP1/deletethis/FRA220429.dop': No such file or directory
+ln: failed to access '/data/.shadows/MARDOP1/deletethis/FRA220429.dop': No such file or directory
+  * deletethis/FRA220429.dop -> /data/MARDOP1/DOP/2022/04/29
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0HTTP/1.1 100 Continue
+
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Request-Id: cdba39ff-c781-11ec-8e86-0242ac110003
+X-Influxdb-Build: OSS
+X-Influxdb-Error: partial write: unable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value unable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field val
+X-Influxdb-Version: 1.7.10
+X-Request-Id: cdba39ff-c781-11ec-8e86-0242ac110003
+Date: Fri, 29 Apr 2022 06:01:25 GMT
+Transfer-Encoding: chunked
+
+{"error":"partial write: unable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651018500000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651019400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651020300000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651021200000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651022100000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651023000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651023900000000000': missing field value\nunable to parse 'MARDOP1sta100  9247    0  5616  100  3631  89142  57634 --:--:-- --:--:-- --:--:--  143k
+tus,filetype=RAW size= 1651024800000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651025700000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651026600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651027500000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651104900000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651105800000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651106700000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651107600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651108500000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651109400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651110300000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651111200000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651112100000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651113000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651113900000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651190400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651191300000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651192200000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651193100000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651194000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651194900000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651195800000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651196700000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651197600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651198500000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651199400000000000': missing field value\nunable to parse 'MARDOP1status,filetype=RAW size= 1651200300000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651017600000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651104000000000000': missing field value\nunable to parse 'MARDOP1status,filetype=DOP size= 1651190400000000000': missing field value dropped=0"}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Done!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

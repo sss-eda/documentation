@@ -1,0 +1,3 @@
+Notes about MARDOP1:
+  * Don't copy over the 'deletethis' directory. It overwrites the real data
+    file when it creates the hardlink in the data directory.
